@@ -1,5 +1,6 @@
 package store
 
+// 生産者側で定義されるのは望ましくない
 type CustomerStorage interface {
 	StoreCustomer(customer Customer) error
 	GetCustomer(id string) (Customer, error)

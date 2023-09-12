@@ -2,6 +2,7 @@ package main
 
 import "errors"
 
+// ネストが深い
 func join1(s1, s2 string, max int) (string, error) {
 	if s1 == "" {
 		return "", errors.New("s1 is empty")
@@ -23,6 +24,8 @@ func join1(s1, s2 string, max int) (string, error) {
 	}
 }
 
+// 左がハッピーパス　右がエラーケース（バッドパス）
+// 逆にならないうようにした方が可読性が上がる 例: if s1 != "" { 通常の処理 } は書き換えた方が良い
 func join2(s1, s2 string, max int) (string, error) {
 	if s1 == "" {
 		return "", errors.New("s1 is empty")

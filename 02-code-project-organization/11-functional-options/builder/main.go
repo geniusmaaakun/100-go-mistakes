@@ -5,6 +5,8 @@ import (
 	"net/http"
 )
 
+// builder pattern
+
 const defaultHTTPPort = 8080
 
 type Config struct {
@@ -15,6 +17,7 @@ type ConfigBuilder struct {
 	port *int
 }
 
+// ポート番号を設定する
 func (b *ConfigBuilder) Port(port int) *ConfigBuilder {
 	b.port = &port
 	return b
@@ -23,8 +26,10 @@ func (b *ConfigBuilder) Port(port int) *ConfigBuilder {
 func (b *ConfigBuilder) Build() (Config, error) {
 	cfg := Config{}
 
+	// ポート番号が指定されていない場合はデフォルト値を設定する
 	if b.port == nil {
 		cfg.Port = defaultHTTPPort
+		// ポート番号が指定されている場合はその値を設定する
 	} else {
 		if *b.port == 0 {
 			cfg.Port = randomPort()
@@ -38,6 +43,7 @@ func (b *ConfigBuilder) Build() (Config, error) {
 	return cfg, nil
 }
 
+// デフォルト設定でもconfigを渡す必要があるのが欠点
 func NewServer(addr string, config Config) (*http.Server, error) {
 	return nil, nil
 }

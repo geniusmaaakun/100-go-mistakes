@@ -20,8 +20,13 @@ func fooBar() {
 }
 
 type InMem struct {
-	sync.Mutex
-	m map[string]int
+	// 間違った埋め込みmutexが公開されてしまう
+	//sync.Mutex
+
+	// 正しい埋め込み
+	// 外部からアクセスできない。通常は内部でしか使わないので、
+	mu sync.Mutex
+	m  map[string]int
 }
 
 func New() *InMem {
@@ -29,26 +34,37 @@ func New() *InMem {
 }
 
 func (i *InMem) Get(key string) (int, bool) {
-	i.Lock()
+	//i.Lock()
+	i.mu.Lock()
 	v, contains := i.m[key]
-	i.Unlock()
+	//i.Unlock()
+	i.mu.Unlock()
 	return v, contains
 }
 
+//正しい埋め込み
 type Logger struct {
-	writeCloser io.WriteCloser
+	// これは間違っている
+	//writeCloser io.WriteCloser
+
+	//埋め込むと、interfaceを満たす
+	io.WriteCloser
 }
 
-func (l Logger) Write(p []byte) (int, error) {
-	return l.writeCloser.Write(p)
-}
+// interfaceを満たす
+// func (l Logger) Write(p []byte) (int, error) {
+// 	return l.writeCloser.Write(p)
+// }
 
-func (l Logger) Close() error {
-	return l.writeCloser.Close()
-}
+// // interfaceを満たす
+// func (l Logger) Close() error {
+// 	return l.writeCloser.Close()
+// }
 
 func main() {
-	l := Logger{writeCloser: os.Stdout}
+	//l := Logger{writeCloser: os.Stdout}
+	l := Logger{WriteCloser: os.Stdout}
+
 	_, _ = l.Write([]byte("foo"))
 	_ = l.Close()
 }

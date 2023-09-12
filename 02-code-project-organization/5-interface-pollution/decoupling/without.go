@@ -1,5 +1,8 @@
 package main
 
+//具体的な実装に依存している
+//テストが難しい
+
 type CustomerService struct {
 	store Store
 }

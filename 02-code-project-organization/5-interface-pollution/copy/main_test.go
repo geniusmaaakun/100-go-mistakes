@@ -8,7 +8,10 @@ import (
 
 func TestCopySourceToDest(t *testing.T) {
 	const input = "foo"
+
+	// strings.NewReader() は io.Reader を実装している
 	source := strings.NewReader(input)
+	// bytes.Buffer は io.Writer を実装している
 	dest := bytes.NewBuffer(make([]byte, 0))
 
 	err := copySourceToDest(source, dest)

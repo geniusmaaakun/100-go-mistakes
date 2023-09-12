@@ -24,6 +24,7 @@ func NewFoo(threshold intConfigGetter) Foo {
 	return Foo{threshold: threshold}
 }
 
+// 設定を読み込むだけで設定を変更することはない
 func (f Foo) Bar() {
 	threshold := f.threshold.Get()
 	_ = threshold

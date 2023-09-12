@@ -1,5 +1,8 @@
 package main
 
+//具体的な実装に依存していない
+//テストが容易
+
 type customerStorer interface {
 	StoreCustomer(Customer) error
 }
