@@ -2,6 +2,9 @@ package main
 
 import "fmt"
 
+//容量の増え方 倍々
+//古い配列はGCによって削除される
+
 func main() {
 	s := make([]int, 3, 6)
 	print(s)

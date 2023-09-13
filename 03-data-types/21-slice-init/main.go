@@ -1,5 +1,10 @@
 package main
 
+//スライスの初期化は必要な容量を指定することで効率的にメモリの確保を行うことができる
+
+//最初から容量がわからない場合は、特に規則はない
+//空のスライスを作成してから、appendで要素を追加する方法もある
+
 func convertEmptySlice(foos []Foo) []Bar {
 	bars := make([]Bar, 0)
 

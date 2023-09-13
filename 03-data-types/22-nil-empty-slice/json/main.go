@@ -6,6 +6,8 @@ import (
 )
 
 func main() {
+	// nil slice
+	//{"ID":"foo","Operations":null}
 	var s1 []float32
 	customer1 := customer{
 		ID:         "foo",
@@ -14,6 +16,8 @@ func main() {
 	b, _ := json.Marshal(customer1)
 	fmt.Println(string(b))
 
+	// empty slice
+	// {"ID":"bar","Operations":[]}
 	s2 := make([]float32, 0)
 	customer2 := customer{
 		ID:         "bar",

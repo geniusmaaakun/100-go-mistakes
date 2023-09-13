@@ -2,6 +2,9 @@ package main
 
 import "math"
 
+//オーバーフローを検知する関数
+
+// 加算
 func Inc32(counter int32) int32 {
 	if counter == math.MaxInt32 {
 		panic("int32 overflow")
@@ -23,6 +26,7 @@ func IncUint(counter uint) uint {
 	return counter + 1
 }
 
+//減算
 func AddInt(a, b int) int {
 	if a > math.MaxInt-b {
 		panic("int overflow")
@@ -31,6 +35,7 @@ func AddInt(a, b int) int {
 	return a + b
 }
 
+//乗算
 func MultiplyInt(a, b int) int {
 	if a == 0 || b == 0 {
 		return 0
