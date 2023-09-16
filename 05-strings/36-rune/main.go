@@ -3,9 +3,11 @@ package main
 import "fmt"
 
 func main() {
+	// シングルバイト文字
 	s := "hello"
 	fmt.Println(len(s))
 
+	//3byte文字　マルチバイト文字
 	s = "汉"
 	fmt.Println(len(s))
 

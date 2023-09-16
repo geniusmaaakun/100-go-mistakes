@@ -10,12 +10,14 @@ type account struct {
 }
 
 func main() {
+	//コピーされる
 	accounts := createAccounts()
 	for _, a := range accounts {
 		a.balance += 1000
 	}
 	fmt.Println(accounts)
 
+	//要素にアクセスして更新する
 	accounts = createAccounts()
 	for i := range accounts {
 		accounts[i].balance += 1000
@@ -28,6 +30,7 @@ func main() {
 	}
 	fmt.Println(accounts)
 
+	// ポインタなので更新される
 	accountsPtr := createAccountsPtr()
 	for _, a := range accountsPtr {
 		a.balance += 1000

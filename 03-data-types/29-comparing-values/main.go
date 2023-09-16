@@ -22,6 +22,7 @@ func main() {
 	cust21 := customer2{id: "x", operations: []float64{1.}}
 	cust22 := customer2{id: "x", operations: []float64{1.}}
 	// Doesn't compile
+	// スライスやマップを含む構造体は比較できない
 	// fmt.Println(cust21 == cust22)
 	_ = cust21
 	_ = cust22
@@ -34,11 +35,14 @@ func main() {
 	var cust32 any = customer2{id: "x", operations: []float64{1.}}
 	fmt.Println(cust31 == cust32)
 
+	//　スライスやマップを含む構造体は比較できないので、reflect.DeepEqualを使う
+	// ただし、DeepEqualは遅いので、頻繁に使うのは避ける。テストのみに使う
 	cust41 := customer2{id: "x", operations: []float64{1.}}
 	cust42 := customer2{id: "x", operations: []float64{1.}}
 	fmt.Println(reflect.DeepEqual(cust41, cust42))
 }
 
+// 自作の比較関数を使う
 func (a customer2) equal(b customer2) bool {
 	if a.id != b.id {
 		return false

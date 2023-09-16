@@ -22,6 +22,8 @@ func main() {
 	ch := ch1
 	for v := range ch {
 		fmt.Println(v)
+
+		//更新してもch1のまま
 		ch = ch2
 	}
 }

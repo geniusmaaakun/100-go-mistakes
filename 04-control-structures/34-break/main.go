@@ -5,6 +5,7 @@ import (
 	"fmt"
 )
 
+// breakされない
 func listing1() {
 	for i := 0; i < 5; i++ {
 		fmt.Printf("%d ", i)
@@ -17,6 +18,7 @@ func listing1() {
 	}
 }
 
+// breakされる
 func listing2() {
 loop:
 	for i := 0; i < 5; i++ {
@@ -25,6 +27,7 @@ loop:
 		switch i {
 		default:
 		case 2:
+			// ラベル付きcontinue文で継続にすることもできる
 			break loop
 		}
 	}

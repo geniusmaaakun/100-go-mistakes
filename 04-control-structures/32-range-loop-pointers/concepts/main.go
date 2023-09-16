@@ -11,12 +11,14 @@ func (s Store) Put(id string, foo *Foo) {
 
 type Foo struct{}
 
+// ポインタなので無駄
 func updateMapValue(mapValue map[string]LargeStruct, id string) {
 	value := mapValue[id]
 	value.foo = "bar"
 	mapValue[id] = value
 }
 
+// ポインタなのでワンステップで更新できる
 func updateMapPointer(mapPointer map[string]*LargeStruct, id string) {
 	mapPointer[id].foo = "bar"
 }

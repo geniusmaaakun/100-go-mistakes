@@ -9,6 +9,8 @@ func consumeMessages() {
 	for {
 		msg := receiveMessage()
 		// Do something with msg
+
+		// :5までを返すだけだが、スライスの中身は1_000_000バイトのまま残る
 		storeMessageType(getMessageType(msg))
 	}
 }

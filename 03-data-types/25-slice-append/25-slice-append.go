@@ -8,6 +8,7 @@ func main() {
 	listing3()
 }
 
+//3が変更される
 func listing1() {
 	s := []int{1, 2, 3}
 
@@ -15,6 +16,7 @@ func listing1() {
 	fmt.Println(s)
 }
 
+//変更されない
 func listing2() {
 	s := []int{1, 2, 3}
 	sCopy := make([]int, 2)
@@ -25,6 +27,7 @@ func listing2() {
 	fmt.Println(result)
 }
 
+//変更されない
 func listing3() {
 	s := []int{1, 2, 3}
 	f(s[:2:2])

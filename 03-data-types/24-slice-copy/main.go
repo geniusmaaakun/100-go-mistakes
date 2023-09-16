@@ -14,6 +14,7 @@ func bad() {
 
 func correct() {
 	src := []int{0, 1, 2}
+	//容量を確保
 	dst := make([]int, len(src))
 	copy(dst, src)
 	fmt.Println(dst)

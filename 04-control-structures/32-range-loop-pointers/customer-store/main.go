@@ -12,6 +12,7 @@ type Store struct {
 }
 
 func main() {
+	// 　初期化
 	s := Store{
 		m: make(map[string]*Customer),
 	}
@@ -24,6 +25,7 @@ func main() {
 }
 
 func (s *Store) storeCustomers(customers []Customer) {
+	// customerのポインタを使い回すので　最後の要素のポインタを毎回更新していることになってしまう
 	for _, customer := range customers {
 		fmt.Printf("%p\n", &customer)
 		s.m[customer.ID] = &customer
@@ -32,7 +34,9 @@ func (s *Store) storeCustomers(customers []Customer) {
 
 func (s *Store) storeCustomers2(customers []Customer) {
 	for _, customer := range customers {
+		//新しく変数を定義しているので毎回新しいアドレスになる
 		current := customer
+		// アドレスをコピー
 		s.m[current.ID] = &current
 	}
 }
