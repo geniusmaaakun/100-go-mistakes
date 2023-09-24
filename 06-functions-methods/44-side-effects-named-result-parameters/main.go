@@ -15,6 +15,7 @@ func (l loc) getCoordinates1(ctx context.Context, address string) (
 	}
 
 	if ctx.Err() != nil {
+		// err は nil。コンパイルエラーになる。ゼロ値で初期化される
 		return 0, 0, err
 	}
 

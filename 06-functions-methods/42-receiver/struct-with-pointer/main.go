@@ -10,6 +10,8 @@ type data struct {
 	balance float64
 }
 
+// 値レシーバーでも変更できる
+// データがポインタの場合は、値レシーバーでも変更できる
 func (c customer) add(operation float64) {
 	c.data.balance += operation
 }

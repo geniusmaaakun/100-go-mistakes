@@ -6,6 +6,8 @@ type customer struct {
 	balance float64
 }
 
+// addはレシーバーの値を変更するため、ポインタレシーバーを使う
+// 変更されない
 func (c customer) add(v float64) {
 	c.balance += v
 }

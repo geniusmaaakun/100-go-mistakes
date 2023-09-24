@@ -7,6 +7,7 @@ import (
 
 const query = "..."
 
+// defer のエラーを無視してしまう例
 func getBalance1(db *sql.DB, clientID string) (float32, error) {
 	rows, err := db.Query(query, clientID)
 	if err != nil {
@@ -18,6 +19,7 @@ func getBalance1(db *sql.DB, clientID string) (float32, error) {
 	return 0, nil
 }
 
+// deferのエラーを無視しない例
 func getBalance2(db *sql.DB, clientID string) (float32, error) {
 	rows, err := db.Query(query, clientID)
 	if err != nil {
@@ -29,6 +31,7 @@ func getBalance2(db *sql.DB, clientID string) (float32, error) {
 	return 0, nil
 }
 
+// メッセージを出力する例
 func getBalance3(db *sql.DB, clientID string) (balance float32, err error) {
 	rows, err := db.Query(query, clientID)
 	if err != nil {

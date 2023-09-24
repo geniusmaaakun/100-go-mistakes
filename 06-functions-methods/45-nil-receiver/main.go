@@ -24,6 +24,8 @@ type Customer struct {
 }
 
 func (c Customer) Validate1() error {
+	// nil で初期化されるので、nilのポインタを返す
+	// 検査結果によってnilポインタか構造体へのポインタを返す
 	var m *MultiError
 
 	if c.Age < 0 {
@@ -54,6 +56,7 @@ func (c Customer) Validate2() error {
 		m.Add(errors.New("name is nil"))
 	}
 
+	// nilでない時だけ、mを返す
 	if m != nil {
 		return m
 	}
@@ -62,7 +65,10 @@ func (c Customer) Validate2() error {
 
 func main() {
 	customer := Customer{Age: 33, Name: "John"}
-	if err := customer.Validate1(); err != nil {
+	//この場合はnilぽインタなので、trueになってしまう
+	//if err := customer.Validate1(); err != nil {
+	// nilポインタの時だけnilになる
+	if err := customer.Validate2(); err != nil {
 		log.Fatalf("customer is invalid: %v", err)
 	}
 }

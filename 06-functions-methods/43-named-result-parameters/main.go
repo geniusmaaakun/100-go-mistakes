@@ -14,6 +14,7 @@ type locator interface {
 
 type loc struct{}
 
+// 緯度、軽度の順で返すのを明示的に示すため、戻り値に名前をつける
 func (l loc) getCoordinates(address string) (lat, lng float32, err error) {
 	return 0, 0, nil
 }

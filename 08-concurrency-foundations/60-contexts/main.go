@@ -17,11 +17,14 @@ type publishHandler struct {
 }
 
 func (h publishHandler) publishPosition(position flight.Position) error {
+	// タイムアウトを設定
 	ctx, cancel := context.WithTimeout(context.Background(), 4*time.Second)
+	// キャンセル通知
 	defer cancel()
 	return h.pub.Publish(ctx, position)
 }
 
+// key は公開されていない独自の型を使うと良い。衝突を避けるため
 type key string
 
 const isValidHostKey key = "isValidHost"
@@ -29,6 +32,7 @@ const isValidHostKey key = "isValidHost"
 func checkValid(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		validHost := r.Host == "acme"
+		// コンテキストに値を設定
 		ctx := context.WithValue(r.Context(), isValidHostKey, validHost)
 
 		next.ServeHTTP(w, r.WithContext(ctx))

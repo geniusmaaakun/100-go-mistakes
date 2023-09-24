@@ -7,6 +7,7 @@ import (
 
 type Route struct{}
 
+//二回出力される
 func GetRoute1(srcLat, srcLng, dstLat, dstLng float32) (Route, error) {
 	err := validateCoordinates1(srcLat, srcLng)
 	if err != nil {
@@ -35,6 +36,7 @@ func validateCoordinates1(lat, lng float32) error {
 	return nil
 }
 
+//出力は一回
 func GetRoute2(srcLat, srcLng, dstLat, dstLng float32) (Route, error) {
 	err := validateCoordinates2(srcLat, srcLng)
 	if err != nil {
@@ -59,6 +61,7 @@ func validateCoordinates2(lat, lng float32) error {
 	return nil
 }
 
+//ラップしたエラーを返すようにする。出力は一回で済む
 func GetRoute3(srcLat, srcLng, dstLat, dstLng float32) (Route, error) {
 	err := validateCoordinates2(srcLat, srcLng)
 	if err != nil {

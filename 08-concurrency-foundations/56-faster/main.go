@@ -4,6 +4,11 @@ import (
 	"sync"
 )
 
+//並列マージソート
+//並行が常に早いとは限らない
+//ゴルーチン起動のオーバーヘッドが大きい
+
+//並列ではないマージソート
 func sequentialMergesort(s []int) {
 	if len(s) <= 1 {
 		return
@@ -15,6 +20,7 @@ func sequentialMergesort(s []int) {
 	merge(s, middle)
 }
 
+//並列マージソート v1
 func parallelMergesortV1(s []int) {
 	if len(s) <= 1 {
 		return
@@ -35,12 +41,16 @@ func parallelMergesortV1(s []int) {
 		parallelMergesortV1(s[middle:])
 	}()
 
+	//毎回待つのは非効率
 	wg.Wait()
 	merge(s, middle)
 }
 
+//閾値　なんとなく2048
 const max = 2048
 
+//並列マージソート v2
+// max以下の場合は並列処理を行わないようにすることで高速化できる
 func parallelMergesortV2(s []int) {
 	if len(s) <= 1 {
 		return

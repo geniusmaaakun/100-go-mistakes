@@ -19,6 +19,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	amount, err := getTransactionAmount1(transactionID)
 	if err != nil {
+		//ラップしたエラーを判定できないケースがある
 		switch err := err.(type) {
 		case transientError:
 			http.Error(w, err.Error(), http.StatusServiceUnavailable)
@@ -53,6 +54,8 @@ func handler2(w http.ResponseWriter, r *http.Request) {
 
 	amount, err := getTransactionAmount2(transactionID)
 	if err != nil {
+		// Asを使ってラップしたエラーを判定できる　特定の型のエラーを判定できる。再起的に取り出す
+		//含んでいればtrueを返す
 		if errors.As(err, &transientError{}) {
 			http.Error(w, err.Error(), http.StatusServiceUnavailable)
 		} else {
@@ -65,6 +68,7 @@ func handler2(w http.ResponseWriter, r *http.Request) {
 	_ = amount
 }
 
+//ラップしたエラーを返す
 func getTransactionAmount2(transactionID string) (float32, error) {
 	// Check transaction ID validity
 

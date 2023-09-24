@@ -6,6 +6,7 @@ import (
 	"os"
 )
 
+//ファイル名を受け取るようにするとテストが書きにくい
 func countEmptyLinesInFile(filename string) (int, error) {
 	file, err := os.Open(filename)
 	if err != nil {
@@ -21,6 +22,7 @@ func countEmptyLinesInFile(filename string) (int, error) {
 	return 0, nil
 }
 
+// io.Readerを受け取るようにするとテストが書きやすい
 func countEmptyLines(reader io.Reader) (int, error) {
 	scanner := bufio.NewScanner(reader)
 	for scanner.Scan() {

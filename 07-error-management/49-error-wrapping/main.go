@@ -6,6 +6,7 @@ func bar() error {
 	return barError{}
 }
 
+// ラップ機能がない時代はカスタムエラーを作成していた
 type barError struct{}
 
 func (b barError) Error() string {
@@ -21,6 +22,7 @@ func listing1() error {
 	return nil
 }
 
+///カスタムエラー
 type BarError struct {
 	Err error
 }
@@ -38,6 +40,7 @@ func listing2() error {
 	return nil
 }
 
+//エラーをラップする
 func listing3() error {
 	err := bar()
 	if err != nil {
@@ -47,6 +50,7 @@ func listing3() error {
 	return nil
 }
 
+//ラップされていない
 func listing4() error {
 	err := bar()
 	if err != nil {

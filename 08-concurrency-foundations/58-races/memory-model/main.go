@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 
+// i == 0
 func listing1() {
 	i := 0
 	go func() {
@@ -9,6 +10,7 @@ func listing1() {
 	}()
 }
 
+// i == 0
 func listing2() {
 	i := 0
 	go func() {
@@ -17,6 +19,7 @@ func listing2() {
 	fmt.Println(i)
 }
 
+// i == 1
 func listing3() {
 	i := 0
 	ch := make(chan struct{})
@@ -28,6 +31,7 @@ func listing3() {
 	ch <- struct{}{}
 }
 
+// i == 1
 func listing4() {
 	i := 0
 	ch := make(chan struct{})
@@ -39,6 +43,7 @@ func listing4() {
 	close(ch)
 }
 
+// i == 0 ブロックされない
 func listing5() {
 	i := 0
 	ch := make(chan struct{}, 1)
@@ -50,6 +55,7 @@ func listing5() {
 	fmt.Println(i)
 }
 
+// i == 1
 func listing6() {
 	i := 0
 	ch := make(chan struct{})

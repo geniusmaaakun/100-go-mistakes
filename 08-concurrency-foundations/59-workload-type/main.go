@@ -31,14 +31,21 @@ func read1(r io.Reader) (int, error) {
 	return count, nil
 }
 
+// ワーカーを10個用意して、それぞれのワーカーにバイト列を渡す
 func read2(r io.Reader) (int, error) {
 	var count int64
 	wg := sync.WaitGroup{}
+
+	// ワーカーの数 runtime.GOMAXPROCS(0) がベスト
+	// コンテキストスイッチのコストが高いので、ワーカーの数はCPUの数に合わせる
 	n := 10
 
+	// ワーカーを10個用意
 	ch := make(chan []byte, n)
 	wg.Add(n)
+	// ワーカーを10個用意して、それぞれのワーカーにバイト列を渡す
 	for i := 0; i < n; i++ {
+		// チャネルにデータが入ってきたら計算する
 		go func() {
 			defer wg.Done()
 			for b := range ch {
@@ -48,6 +55,7 @@ func read2(r io.Reader) (int, error) {
 		}()
 	}
 
+	//読み込み開始
 	for {
 		b := make([]byte, 1024)
 		_, err := r.Read(b)

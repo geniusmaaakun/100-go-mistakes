@@ -16,6 +16,8 @@ func main() {
 
 func f1() error {
 	var status string
+
+	//初期値が空文字列のため、deferで呼び出される時点では空文字列が渡される
 	defer notify(status)
 	defer incrementCounter(status)
 
@@ -33,8 +35,10 @@ func f1() error {
 	return nil
 }
 
+//解決策1
 func f2() error {
 	var status string
+	//deferで呼び出される時点でのstatusのポインタを渡す
 	defer notifyPtr(&status)
 	defer incrementCounterPtr(&status)
 
@@ -52,8 +56,10 @@ func f2() error {
 	return nil
 }
 
+//解決策2
 func f3() error {
 	var status string
+	//クロージャーにすることで最後に評価されたタイミングでのstatusを渡す
 	defer func() {
 		notify(status)
 		incrementCounter(status)
