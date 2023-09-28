@@ -18,6 +18,7 @@ type Customer struct {
 	age   int
 }
 
+// このコードは、デッドロックを引き起こす可能性がある
 func (c *Customer) UpdateAge1(age int) error {
 	c.mutex.Lock()
 	defer c.mutex.Unlock()
@@ -30,6 +31,7 @@ func (c *Customer) UpdateAge1(age int) error {
 	return nil
 }
 
+// このコードは、デッドロックを引き起こす可能性がある
 func (c *Customer) UpdateAge2(age int) error {
 	if age < 0 {
 		return fmt.Errorf("age should be positive for customer %v", c)
@@ -42,6 +44,7 @@ func (c *Customer) UpdateAge2(age int) error {
 	return nil
 }
 
+// このコードは、デッドロックを引き起こさない
 func (c *Customer) UpdateAge3(age int) error {
 	c.mutex.Lock()
 	defer c.mutex.Unlock()

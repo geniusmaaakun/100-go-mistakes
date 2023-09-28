@@ -27,8 +27,11 @@ func (c *Cache) AddBalance(id string, balance float64) {
 	c.mu.Unlock()
 }
 
+//別のゴルーチンで更新をしている場合、データ競合を引き起こす
 func (c *Cache) AverageBalance1() float64 {
+	// blancesを代入するときだけ、ロックする
 	c.mu.RLock()
+	//　参照なので、コピーとは異なる
 	balances := c.balances
 	c.mu.RUnlock()
 
@@ -39,6 +42,7 @@ func (c *Cache) AverageBalance1() float64 {
 	return sum / float64(len(balances))
 }
 
+//競合しない
 func (c *Cache) AverageBalance2() float64 {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
@@ -50,8 +54,10 @@ func (c *Cache) AverageBalance2() float64 {
 	return sum / float64(len(c.balances))
 }
 
+// 競合しない
 func (c *Cache) AverageBalance3() float64 {
 	c.mu.RLock()
+	// ロックを解除する前に、コピーを作成する
 	m := make(map[string]float64, len(c.balances))
 	for k, v := range c.balances {
 		m[k] = v

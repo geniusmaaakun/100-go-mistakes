@@ -3,6 +3,7 @@ package main
 import "context"
 
 func main() {
+	// mainが終了する前に、newWatcher() が終了するようにする
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 

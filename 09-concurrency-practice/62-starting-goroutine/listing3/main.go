@@ -2,6 +2,7 @@ package main
 
 func main() {
 	w := newWatcher()
+	//明示的にclose()を呼び出す
 	defer w.close()
 
 	// Run the application
