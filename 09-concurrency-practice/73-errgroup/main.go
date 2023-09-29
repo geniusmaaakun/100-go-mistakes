@@ -8,6 +8,7 @@ import (
 )
 
 func handler1(ctx context.Context, circles []Circle) ([]Result, error) {
+	// 結果を格納するスライスを作成　エラーも入る
 	results := make([]Result, len(circles))
 	wg := sync.WaitGroup{}
 	wg.Add(len(results))
@@ -33,6 +34,7 @@ func handler1(ctx context.Context, circles []Circle) ([]Result, error) {
 
 func handler2(ctx context.Context, circles []Circle) ([]Result, error) {
 	results := make([]Result, len(circles))
+	// errorgroupを使う
 	g, ctx := errgroup.WithContext(ctx)
 
 	for i, circle := range circles {
@@ -48,6 +50,7 @@ func handler2(ctx context.Context, circles []Circle) ([]Result, error) {
 		})
 	}
 
+	// すべてのゴルーチンが終了するまで待つ
 	if err := g.Wait(); err != nil {
 		return nil, err
 	}

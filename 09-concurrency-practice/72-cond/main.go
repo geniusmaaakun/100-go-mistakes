@@ -37,6 +37,7 @@ func listing1() {
 	}()
 }
 
+// 思わぬしゅつ力になるケースがある。ゴール超えても出力する
 func listing2() {
 	type Donation struct {
 		balance int
@@ -65,6 +66,7 @@ func listing2() {
 	}
 }
 
+// Condを使う
 func listing3() {
 	type Donation struct {
 		cond    *sync.Cond
@@ -79,6 +81,7 @@ func listing3() {
 	f := func(goal int) {
 		donation.cond.L.Lock()
 		for donation.balance < goal {
+			// 同期を待つ
 			donation.cond.Wait()
 		}
 		fmt.Printf("%d$ goal reached\n", donation.balance)
@@ -93,6 +96,7 @@ func listing3() {
 		donation.cond.L.Lock()
 		donation.balance++
 		donation.cond.L.Unlock()
+		// 同期する
 		donation.cond.Broadcast()
 	}
 }

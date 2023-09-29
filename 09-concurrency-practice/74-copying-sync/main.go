@@ -19,6 +19,7 @@ func main() {
 }
 
 type Counter struct {
+	// コピーされる
 	mu       sync.Mutex
 	counters map[string]int
 }
@@ -38,6 +39,7 @@ func (c *Counter) Increment2(name string) {
 }
 
 type Counter2 struct {
+	// コピーされない 正しい
 	mu       *sync.Mutex
 	counters map[string]int
 }
