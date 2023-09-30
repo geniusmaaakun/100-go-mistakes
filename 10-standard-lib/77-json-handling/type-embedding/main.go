@@ -29,6 +29,8 @@ func listing1() error {
 		Time: time.Now(),
 	}
 
+	//埋め込みのMarshalJSONが呼ばれるため、timeしか出力されない
+	//独自のMarshalJSONを定義する必要がある。これで回避できる
 	b, err := json.Marshal(event)
 	if err != nil {
 		return err
@@ -39,7 +41,8 @@ func listing1() error {
 }
 
 type Event2 struct {
-	ID   int
+	ID int
+	// 名前をつけることで、埋め込みではなくなる
 	Time time.Time
 }
 
@@ -58,6 +61,7 @@ func listing2() error {
 	return nil
 }
 
+//埋め込み型のままにしておきたい場合は、独自のMarshalJSONを定義する必要がある
 type Event3 struct {
 	ID int
 	time.Time

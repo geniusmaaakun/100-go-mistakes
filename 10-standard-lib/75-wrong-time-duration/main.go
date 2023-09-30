@@ -11,6 +11,7 @@ func main() {
 }
 
 func listing1() {
+	// 1ms = 1000us
 	ticker := time.NewTicker(1000)
 	for {
 		select {
@@ -21,6 +22,7 @@ func listing1() {
 }
 
 func listing2() {
+	// 1microsecond = の場合はこのようにした方が良い
 	ticker := time.NewTicker(time.Microsecond)
 	for {
 		select {
