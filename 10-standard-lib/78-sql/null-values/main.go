@@ -2,6 +2,7 @@ package main
 
 import "database/sql"
 
+//値がない場合はnilにならない、エラーになる
 func listing1(db *sql.DB, id string) error {
 	rows, err := db.Query("SELECT DEP, AGE FROM EMP WHERE ID = ?", id)
 	if err != nil {
@@ -23,6 +24,7 @@ func listing1(db *sql.DB, id string) error {
 	return nil
 }
 
+//値がない場合はnilになる
 func listing2(db *sql.DB, id string) error {
 	rows, err := db.Query("SELECT DEP, AGE FROM EMP WHERE ID = ?", id)
 	if err != nil {
@@ -31,6 +33,7 @@ func listing2(db *sql.DB, id string) error {
 	// Defer closing rows
 
 	var (
+		//ポインタにする
 		department *string
 		age        int
 	)
@@ -44,6 +47,7 @@ func listing2(db *sql.DB, id string) error {
 	return nil
 }
 
+//値がない場合はnilになる
 func listing3(db *sql.DB, id string) error {
 	rows, err := db.Query("SELECT DEP, AGE FROM EMP WHERE ID = ?", id)
 	if err != nil {
@@ -52,6 +56,7 @@ func listing3(db *sql.DB, id string) error {
 	// Defer closing rows
 
 	var (
+		// NullStringはsql.NullString型
 		department sql.NullString
 		age        int
 	)

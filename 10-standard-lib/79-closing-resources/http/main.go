@@ -6,6 +6,7 @@ import (
 	"net/http"
 )
 
+// bodyをクローズしないとリソースリークになる
 func (h handler) getBody1() (string, error) {
 	resp, err := h.client.Get(h.url)
 	if err != nil {
@@ -31,6 +32,7 @@ func (h handler) getBody2() (string, error) {
 		return "", err
 	}
 
+	// ここでクローズしないとリソースリークになる
 	defer func() {
 		err := resp.Body.Close()
 		if err != nil {
@@ -41,6 +43,8 @@ func (h handler) getBody2() (string, error) {
 	return string(body), nil
 }
 
+// 読み込みに関係なくクローズする
+// KeepAliveが有効な場合は、必要がなくて読み込むべき
 func (h handler) getStatusCode1(body io.Reader) (int, error) {
 	resp, err := h.client.Post(h.url, "application/json", body)
 	if err != nil {
@@ -70,6 +74,7 @@ func (h handler) getStatusCode2(body io.Reader) (int, error) {
 		}
 	}()
 
+	// Copyを使って、読み込みを行う。コピーせずに破棄するio.Readallよりも効率的
 	_, _ = io.Copy(io.Discard, resp.Body)
 
 	return resp.StatusCode, nil

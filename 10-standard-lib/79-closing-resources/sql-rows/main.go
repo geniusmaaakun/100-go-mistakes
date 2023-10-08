@@ -5,6 +5,7 @@ import (
 	"log"
 )
 
+// rows　クローズしていない
 func listing1() error {
 	db, err := sql.Open("postgres", dataSourceName)
 	if err != nil {
@@ -22,6 +23,7 @@ func listing1() error {
 	return nil
 }
 
+// rows　クローズしている
 func listing2() error {
 	db, err := sql.Open("postgres", dataSourceName)
 	if err != nil {

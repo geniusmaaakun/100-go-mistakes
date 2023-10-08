@@ -2,6 +2,7 @@ package main
 
 import "net/http"
 
+// returnを忘れると、ヘッダーが書き込まれてしまう
 func handler1(w http.ResponseWriter, req *http.Request) {
 	err := foo(req)
 	if err != nil {
@@ -12,6 +13,7 @@ func handler1(w http.ResponseWriter, req *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 }
 
+// returnしている
 func handler2(w http.ResponseWriter, req *http.Request) {
 	err := foo(req)
 	if err != nil {

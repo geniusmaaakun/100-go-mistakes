@@ -26,6 +26,7 @@ func writeToFile1(filename string, content []byte) (err error) {
 		return err
 	}
 
+	// 書き込みに成功した場合にはcloseのエラーを返す。名前付きエラーを使う事でできる
 	defer func() {
 		closeErr := f.Close()
 		if err == nil {
@@ -37,6 +38,8 @@ func writeToFile1(filename string, content []byte) (err error) {
 	return
 }
 
+// ディスク上に書き込まれる事が保証できないので、バッファに残ったままフラッシュされない可能性
+// があるので、sync()を呼び出す
 func writeToFile2(filename string, content []byte) (err error) {
 	f, err := os.OpenFile(filename, os.O_APPEND|os.O_WRONLY, os.ModeAppend)
 	if err != nil {
@@ -52,5 +55,8 @@ func writeToFile2(filename string, content []byte) (err error) {
 		return err
 	}
 
+	// バッファに残ったままフラッシュされない可能性があるので、sync()を呼び出す
+	// コミットする
+	// 内容がディスクに書き込まれてからreturn する。性能は落ちる
 	return f.Sync()
 }

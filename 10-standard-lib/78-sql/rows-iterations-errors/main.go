@@ -6,6 +6,7 @@ import (
 	"log"
 )
 
+//for rows.Next()でエラーが発生した場合はrows.Err()を呼ぶ必要がある
 func get1(ctx context.Context, db *sql.DB, id string) (string, int, error) {
 	rows, err := db.QueryContext(ctx,
 		"SELECT DEP, AGE FROM EMP WHERE ID = ?", id)
@@ -33,6 +34,7 @@ func get1(ctx context.Context, db *sql.DB, id string) (string, int, error) {
 	return department, age, nil
 }
 
+//改善版
 func get2(ctx context.Context, db *sql.DB, id string) (string, int, error) {
 	rows, err := db.QueryContext(ctx,
 		"SELECT DEP, AGE FROM EMP WHERE ID = ?", id)
@@ -56,6 +58,8 @@ func get2(ctx context.Context, db *sql.DB, id string) (string, int, error) {
 			return "", 0, err
 		}
 	}
+
+	// rows.Err()はrows.Next()の後に呼ぶ
 	if err := rows.Err(); err != nil {
 		return "", 0, err
 	}
