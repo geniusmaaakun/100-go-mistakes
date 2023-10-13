@@ -5,12 +5,15 @@ import (
 	"time"
 )
 
+// スタブを使ってテストする
+
 func TestCache_TrimOlderThan(t *testing.T) {
 	events := []Event{
 		{Timestamp: parseTime(t, "2020-01-01T12:00:00.04Z")},
 		{Timestamp: parseTime(t, "2020-01-01T12:00:00.05Z")},
 		{Timestamp: parseTime(t, "2020-01-01T12:00:00.06Z")},
 	}
+	// スタブを使ってテストする。現在時刻を返す関数を渡す
 	cache := &Cache{now: func() time.Time {
 		return parseTime(t, "2020-01-01T12:00:00.06Z")
 	}}

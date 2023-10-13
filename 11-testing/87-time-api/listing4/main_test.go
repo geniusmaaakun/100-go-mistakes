@@ -13,6 +13,7 @@ func TestCache_TrimOlderThan(t *testing.T) {
 	}
 	cache := &Cache{}
 	cache.Add(events)
+	// 呼び出し元で現在時刻を取得する
 	cache.TrimOlderThan(parseTime(t, "2020-01-01T12:00:00.06Z").
 		Add(-15 * time.Millisecond))
 	got := cache.GetAll()

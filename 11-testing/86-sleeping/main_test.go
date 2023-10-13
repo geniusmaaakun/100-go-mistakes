@@ -23,6 +23,7 @@ func (p *publisherMock1) Get() []Foo {
 	return p.got
 }
 
+// mutexに依存するモック
 func TestGetBestFoo(t *testing.T) {
 	mock := publisherMock1{}
 	h := Handler{
@@ -40,6 +41,7 @@ func TestGetBestFoo(t *testing.T) {
 	_ = published
 }
 
+//?
 func assert(t *testing.T, assertion func() bool,
 	maxRetry int, waitTime time.Duration) {
 	for i := 0; i < maxRetry; i++ {
@@ -51,10 +53,12 @@ func assert(t *testing.T, assertion func() bool,
 	t.Fail()
 }
 
+// グルーチンを使うモック
 type publisherMock2 struct {
 	ch chan []Foo
 }
 
+// channelに送信する。同期を待つ
 func (p *publisherMock2) Publish(got []Foo) {
 	p.ch <- got
 }

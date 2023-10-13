@@ -15,6 +15,7 @@ type Event struct {
 	Data      string
 }
 
+// 呼び出し元で現在時刻を取得するようにする
 func (c *Cache) TrimOlderThan(t time.Time) {
 	c.mu.RLock()
 	defer c.mu.RUnlock()

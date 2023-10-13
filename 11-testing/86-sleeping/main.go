@@ -1,7 +1,8 @@
 package main
 
 type Handler struct {
-	n         int
+	n int
+	// interfaceをテストでモック
 	publisher publisher
 }
 

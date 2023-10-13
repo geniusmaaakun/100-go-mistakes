@@ -2,6 +2,7 @@ package main
 
 import "testing"
 
+//一個ずつテストを書くのは面倒
 func TestRemoveNewLineSuffix_Empty(t *testing.T) {
 	got := removeNewLineSuffixes("")
 	expected := ""
@@ -42,6 +43,7 @@ func TestRemoveNewLineSuffix_EndingWithoutNewLine(t *testing.T) {
 	}
 }
 
+// テストをテーブル駆動で書く
 func TestRemoveNewLineSuffix(t *testing.T) {
 	tests := map[string]struct {
 		input    string
@@ -69,7 +71,11 @@ func TestRemoveNewLineSuffix(t *testing.T) {
 		},
 	}
 	for name, tt := range tests {
+		// t.Parallel()を使うと、テストを並列実行できる
+		// クロージャが誤った値をキャプチャしないようにするために、テストの引数を渡す
+		// 以下のようにする事で、個別のクロージャは自身のttにアクセスする
 		tt := tt
+		// サブテスト
 		t.Run(name, func(t *testing.T) {
 			t.Parallel()
 			got := removeNewLineSuffixes(tt.input)

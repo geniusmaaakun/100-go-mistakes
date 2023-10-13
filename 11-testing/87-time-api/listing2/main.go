@@ -5,6 +5,9 @@ import (
 	"time"
 )
 
+//改善案
+
+//スタブを使ってテストする。現在時刻を返す関数を渡す
 type now func() time.Time
 
 type Cache struct {

@@ -9,12 +9,17 @@ import (
 	"time"
 )
 
+// サーバーのテスト
 func TestHandler(t *testing.T) {
+	// リクエストを作成
 	req := httptest.NewRequest(http.MethodGet, "http://localhost",
 		strings.NewReader("foo"))
+	//レスピンスレコーダーを作成
 	w := httptest.NewRecorder()
+	// ハンドラ実行
 	Handler(w, req)
 
+	//検証
 	if got := w.Result().Header.Get("X-API-VERSION"); got != "1.0" {
 		t.Errorf("api version: expected 1.0, got %s", got)
 	}
@@ -29,7 +34,9 @@ func TestHandler(t *testing.T) {
 	}
 }
 
+// クライアントのテスト
 func TestDurationClientGet(t *testing.T) {
+	//サーバーを作成
 	srv := httptest.NewServer(
 		http.HandlerFunc(
 			func(w http.ResponseWriter, r *http.Request) {

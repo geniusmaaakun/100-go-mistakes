@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+// このようにテストすると、マシンが忙しくなったりすると失敗する
 func TestCache_TrimOlderThan(t *testing.T) {
 	events := []Event{
 		{Timestamp: time.Now().Add(-20 * time.Millisecond)},

@@ -15,6 +15,7 @@ type Event struct {
 	Data      string
 }
 
+// nowを引数で受け取るようにする
 func (c *Cache) TrimOlderThan(now time.Time, since time.Duration) {
 	c.mu.RLock()
 	defer c.mu.RUnlock()

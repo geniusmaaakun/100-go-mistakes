@@ -2,6 +2,7 @@ package main
 
 import "strings"
 
+// 開業コードを削除する
 func removeNewLineSuffixes(s string) string {
 	if s == "" {
 		return s
