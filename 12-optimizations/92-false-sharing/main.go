@@ -7,11 +7,13 @@ type Input struct {
 	b int64
 }
 
+// input a, bの総和を求める
 type Result1 struct {
 	sumA int64
 	sumB int64
 }
 
+//　偽共有が起きる
 func count1(inputs []Input) Result1 {
 	wg := sync.WaitGroup{}
 	wg.Add(2)
@@ -36,6 +38,8 @@ func count1(inputs []Input) Result1 {
 	return result
 }
 
+// パディングを入れることで偽共有を防ぐ
+// こっちの方が高速化される
 type Result2 struct {
 	sumA int64
 	_    [56]byte

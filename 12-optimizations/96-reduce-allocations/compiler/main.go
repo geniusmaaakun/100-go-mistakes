@@ -10,6 +10,7 @@ func (c *cache) get1(bytes []byte) (v int, contains bool) {
 	return
 }
 
+// コンパイラはbyteからstringへの変換を避けるために、高速化する
 func (c *cache) get2(bytes []byte) (v int, contains bool) {
 	v, contains = c.m[string(bytes)]
 	return

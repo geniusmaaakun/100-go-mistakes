@@ -2,6 +2,8 @@ package main
 
 import "testing"
 
+// 4倍の速度差があると思うが、実際は10%ほどしか差がない
+
 var global int64
 
 func BenchmarkSum2(b *testing.B) {

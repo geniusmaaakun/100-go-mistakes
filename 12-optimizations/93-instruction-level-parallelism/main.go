@@ -12,6 +12,7 @@ func add(s [2]int64) [2]int64 {
 	return s
 }
 
+// こっちの方が早い
 func add2(s [2]int64) [2]int64 {
 	for i := 0; i < n; i++ {
 		v := s[0]

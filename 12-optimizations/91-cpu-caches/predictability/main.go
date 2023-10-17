@@ -5,6 +5,7 @@ type node struct {
 	next  *node
 }
 
+// リンクリスト
 func linkedList(n *node) int64 {
 	var total int64
 	for n != nil {
@@ -14,6 +15,7 @@ func linkedList(n *node) int64 {
 	return total
 }
 
+// スライス
 func sum2(s []int64) int64 {
 	var total int64
 	for i := 0; i < len(s); i += 2 {

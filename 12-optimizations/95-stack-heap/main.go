@@ -8,6 +8,7 @@ func listing1() {
 	println(c)
 }
 
+// インライン展開されない
 //go:noinline
 func sumValue(x, y int) int {
 	z := x + y
@@ -22,6 +23,8 @@ func listing2() {
 	println(*c)
 }
 
+// ヒープにエスケープされる こっちの方が遅い
+// インライン展開されない
 //go:noinline
 func sumPtr(x, y int) *int {
 	z := x + y
